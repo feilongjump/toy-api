@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('auth/register', 'AuthController@register');
 Route::post('auth/login', 'AuthController@login');
 Route::get('me', 'UserController@me');
+
+Route::resources([
+    'articles' => 'ArticleController',
+]);
