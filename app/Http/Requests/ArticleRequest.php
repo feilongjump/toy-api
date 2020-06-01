@@ -11,8 +11,15 @@ class ArticleRequest extends Request
      */
     public function rules()
     {
-        return [
-            'title' => 'required'
-        ];
+        switch (request()->method()) {
+            case 'POST':
+            case 'PATCH':
+                return [
+                    'title' => 'required',
+                    'markdown' => 'required',
+                ];
+            default:
+                return [];
+        }
     }
 }

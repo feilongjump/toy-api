@@ -29,6 +29,8 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
+        $article->loadMissing('content');
+
         return new ArticleResource($article);
     }
 
