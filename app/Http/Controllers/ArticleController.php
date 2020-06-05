@@ -10,12 +10,17 @@ class ArticleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
 
-    public function index(ArticleRequest $request)
+    public function index(ArticleRequest $request, Article $article)
     {
-        $articles = Article::whereUserId($request->user()->id)->get();
+        $query = $article->query();
+
+        if (! empty($request->user()->id)) $query->whereUserId($request->user()->id);
+
+        $articles = $query->where('title', 'like', "%{$request->keywords}%")
+            ->paginate($request->get('limit', 20));
 
         return ArticleResource::collection($articles);
     }
