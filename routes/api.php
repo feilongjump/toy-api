@@ -20,4 +20,5 @@ Route::get('me', 'UserController@me');
 
 Route::resources([
     'articles' => 'ArticleController',
+    'todos' => 'TodoController',
 ]);
