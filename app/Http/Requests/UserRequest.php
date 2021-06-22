@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AuthRequest extends Request
+class UserRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,8 +12,7 @@ class AuthRequest extends Request
     public function rules(): array
     {
         return [
-            'username' => 'required|string',
-            'password' => 'required|min:6',
+            //
         ];
     }
 }

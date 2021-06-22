@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
+ * @property mixed id
  * @property mixed is_admin
  */
 class User extends Authenticatable implements JWTSubject
@@ -65,5 +66,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    public function isAuthorOf($model): bool
+    {
+        return $this->id == $model->id;
     }
 }
