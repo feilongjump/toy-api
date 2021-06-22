@@ -20,3 +20,4 @@ Route::get('me', 'UsersController@me');
 Route::resource('users', 'UsersController')->only([
     'index', 'show', 'update'
 ]);
+Route::resource('topics', 'TopicsController');
