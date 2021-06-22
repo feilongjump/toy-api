@@ -9,11 +9,11 @@ class UserPolicy extends Policy
 {
     public function view(User $user, User $model): bool
     {
-        return $user->isAuthorOf($model);
+        return $user->isOneselfOf($model);
     }
 
     public function update(User $user, User $model): bool
     {
-        return $user->isAuthorOf($model);
+        return $user->isOneselfOf($model);
     }
 }

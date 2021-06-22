@@ -73,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->is_admin;
     }
 
-    public function isAuthorOf($model): bool
+    public function isOneselfOf($model): bool
     {
         return $this->id == $model->id;
     }
