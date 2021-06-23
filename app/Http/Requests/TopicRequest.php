@@ -11,8 +11,21 @@ class TopicRequest extends Request
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'title'    => 'required|string',
+                    'markdown' => 'required|string',
+                ];
+            case 'PATCH':
+                return [
+                    'title'    => 'string',
+                    'markdown' => 'string',
+                ];
+            default:
+                return [
+
+                ];
+        }
     }
 }

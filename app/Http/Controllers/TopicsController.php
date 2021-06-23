@@ -9,6 +9,11 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TopicsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     public function index(TopicRequest $request, Topic $topic): AnonymousResourceCollection
     {
         $topics = $topic->paginate();
