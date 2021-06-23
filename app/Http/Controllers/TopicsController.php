@@ -30,7 +30,7 @@ class TopicsController extends Controller
     {
         $this->authorize('update', $topic);
 
-        $attributes = $request->only(['title']);
+        $attributes = $request->only(['title', 'markdown']);
 
         $topic->update($attributes);
 

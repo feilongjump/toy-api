@@ -24,6 +24,7 @@ class TopicFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'user_id' => $this->faker->numberBetween(1, 10),
+            'markdown' => $this->faker->text(),
             'reply_count' => $this->faker->randomNumber(),
             'view_count' => $this->faker->randomNumber(),
         ];

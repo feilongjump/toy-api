@@ -17,6 +17,7 @@ class CreateTopicsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('title')->index();
+            $table->mediumText('markdown')->nullable();
             $table->integer('reply_count')->unsigned()->default(0);
             $table->integer('view_count')->unsigned()->default(0);
             $table->timestamps();
