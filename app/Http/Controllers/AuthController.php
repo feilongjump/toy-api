@@ -18,6 +18,8 @@ class AuthController extends Controller
             'password' => bcrypt($request->get('password')),
         ]);
 
+        $user->sendActiveMail();
+
         return response()->json($user);
     }
 
