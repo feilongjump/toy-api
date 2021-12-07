@@ -18,3 +18,4 @@ Route::post('register', 'AuthController@register');
 
 Route::post('user/send-active-mail', 'UserController@sendActiveMail');
 Route::get('user/activate', 'UserController@activate')->name('user.activate');
+Route::get('me', 'UserController@me');
