@@ -20,7 +20,7 @@ class AuthController extends Controller
 
         $user->sendActiveMail();
 
-        return response()->json($user);
+        return $this->respondWithToken(auth('api')->login($user));
     }
 
     public function login(AuthRequest $request)
@@ -37,10 +37,22 @@ class AuthController extends Controller
             throw new AuthenticationException('用户名或密码错误');
         }
 
+        return $this->respondWithToken($token)->setStatusCode(201);
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60
-        ])->setStatusCode(201);
+        ]);
     }
 }
