@@ -15,7 +15,7 @@ class ArticleRequest extends FormRequest
             case 'POST':
             case 'PATCH':
                 return [
-                    'title' => 'required|min:6',
+                    'title' => 'required|min:2',
                     'type' => 'in:markdown,body',
                     'content.body' => 'required_if:type,body',
                     'content.markdown' => 'required_if:type,markdown',
