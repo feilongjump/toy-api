@@ -20,7 +20,10 @@ Route::post('user/send-active-mail', 'UserController@sendActiveMail');
 Route::get('user/activate', 'UserController@activate')->name('user.activate');
 Route::get('me', 'UserController@me');
 
+Route::patch('todos/{todo}/success', 'TodoController@success');
+Route::patch('todos/{todo}/failed', 'TodoController@failed');
 
 Route::resources([
     'articles' => 'ArticleController',
+    'todos' => 'TodoController',
 ]);
