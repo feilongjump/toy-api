@@ -18,7 +18,7 @@ class CreateTodosTable extends Migration
 
             $table->unsignedBigInteger('user_id')->index();
             $table->string('title');
-            $table->enum('status', ['created', 'success', 'failed']);
+            $table->enum('status', ['created', 'processing', 'success', 'failed']);
 
             $table->timestamps();
             $table->softDeletes();

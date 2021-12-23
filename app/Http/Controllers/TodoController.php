@@ -92,6 +92,16 @@ class TodoController extends Controller
         return $this->withNoContent();
     }
 
+    public function processing(Todo $todo)
+    {
+        $this->authorize('update', $todo);
+
+        $todo->status = 'processing';
+        $todo->save();
+
+        return new TodoResource($todo);
+    }
+
     public function success(Todo $todo)
     {
         $this->authorize('update', $todo);
