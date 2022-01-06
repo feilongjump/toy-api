@@ -24,12 +24,14 @@ class TodoObserver
 
     protected function saveContent($todo)
     {
-        $type = request()->input('type', 'markdown');
+        if (! empty(request()->input('content')) ) {
+            $type = request()->input('type', 'markdown');
 
-        $data = Arr::only(request()->input('content', []), $type);
+            $data = Arr::only(request()->input('content', []), $type);
 
-        $todo->content()->updateOrCreate(['contentable_id' => $todo->id], $data);
+            $todo->content()->updateOrCreate(['contentable_id' => $todo->id], $data);
 
-        $todo->loadMissing('content');
+            $todo->loadMissing('content');
+        }
     }
 }
