@@ -21,7 +21,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::whereUserId(auth('api')->user()->id)->get();
+        $todos = Todo::whereUserId(auth('api')->user()->id)->latest()->get();
 
         return TodoResource::collection($todos);
     }
