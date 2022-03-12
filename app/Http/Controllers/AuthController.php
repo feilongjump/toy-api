@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -20,7 +21,7 @@ class AuthController extends Controller
 
         $user->sendActiveMail();
 
-        return $this->respondWithToken(auth('api')->login($user));
+        return $this->respondWithToken($user, []);
     }
 
     public function login(AuthRequest $request)
@@ -33,26 +34,29 @@ class AuthController extends Controller
 
         $credentials['password'] = $request->password;
 
-        if (!$token = \Auth::guard('api')->attempt($credentials)) {
+        if (!Auth::attempt($credentials)) {
             throw new AuthenticationException('用户名或密码错误');
         }
 
-        return $this->respondWithToken($token)->setStatusCode(201);
+        $user = Auth::user();
+        $abilities = $user->isActivated ? ['*'] : [];
+
+        return $this->respondWithToken($user, $abilities)->setStatusCode(201);
     }
 
     /**
      * Get the token array structure.
      *
-     * @param  string $token
-     *
+     * @param User $user
+     * @param array $abilities
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken(User $user, array $abilities = ['*'])
     {
         return response()->json([
-            'access_token' => $token,
+            'access_token' => $user->createToken(config('app.name'), $abilities)->plainTextToken,
             'token_type' => 'Bearer',
-            'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60
+            'expires_in' => Carbon::now()->addSeconds(config('sanctum.expiration') ?? 604800)->timestamp
         ]);
     }
 }

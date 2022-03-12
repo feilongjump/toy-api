@@ -15,7 +15,7 @@ class ArticlePolicy extends Policy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->tokenCan('article:create');
     }
 
     /**
@@ -27,7 +27,7 @@ class ArticlePolicy extends Policy
      */
     public function update(User $user, Article $article)
     {
-        return $article->user_id == $user->id;
+        return $article->user_id == $user->id && $user->tokenCan('article:update');
     }
 
     /**
@@ -39,6 +39,6 @@ class ArticlePolicy extends Policy
      */
     public function delete(User $user, Article $article)
     {
-        return $article->user_id == $user->id;
+        return $article->user_id == $user->id && $user->tokenCan('article:delete');
     }
 }

@@ -7,12 +7,11 @@ use App\Mail\Activation;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -35,31 +34,18 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
-    protected $dates = [
-        'activated_at',
-    ];
-
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
     protected $casts = [
+        'activated_at' => 'datetime',
     ];
 
     protected $appends = [
         'is_activated',
     ];
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims(): array
-    {
-        return [];
-    }
 
     public function getIsActivatedAttribute(): bool
     {

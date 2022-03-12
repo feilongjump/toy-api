@@ -27,7 +27,7 @@ class TodoPolicy extends Policy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->tokenCan('todo:create');
     }
 
     /**
@@ -39,7 +39,7 @@ class TodoPolicy extends Policy
      */
     public function update(User $user, Todo $todo)
     {
-        return $todo->user_id == $user->id;
+        return $todo->user_id == $user->id && $user->tokenCan('todo:update');
     }
 
     /**
@@ -51,6 +51,6 @@ class TodoPolicy extends Policy
      */
     public function delete(User $user, Todo $todo)
     {
-        return $todo->user_id == $user->id;
+        return $todo->user_id == $user->id && $user->tokenCan('todo:delete');
     }
 }
