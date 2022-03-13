@@ -65,8 +65,7 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        $article->title = $request->title;
-        $article->save();
+        $article->update($request->all());
 
         return new ArticleResource($article);
     }

@@ -17,7 +17,7 @@ class TodoObserver
         $this->saveContent($todo);
     }
 
-    public function updated(Todo $todo)
+    public function saved(Todo $todo)
     {
         $this->saveContent($todo);
     }

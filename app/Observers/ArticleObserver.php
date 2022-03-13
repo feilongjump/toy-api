@@ -17,7 +17,7 @@ class ArticleObserver
         $this->saveContent($article);
     }
 
-    public function updated(Article $article)
+    public function saved(Article $article)
     {
         $this->saveContent($article);
     }

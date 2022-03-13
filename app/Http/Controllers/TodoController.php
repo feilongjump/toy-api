@@ -68,8 +68,7 @@ class TodoController extends Controller
     {
         $this->authorize('update', $todo);
 
-        $todo->title = $request->title;
-        $todo->save();
+        $todo->update($request->all());
 
         return new TodoResource($todo);
     }
